@@ -1,0 +1,15 @@
+.row {
+    display: flex;
+    align-items: flex-start;
+}
+
+.video {
+    width: 50%;
+    margin-right: 20px;
+}
+
+.parsed-list {
+    overflow: auto;
+    height: 500px;
+    width: 50%;
+}
