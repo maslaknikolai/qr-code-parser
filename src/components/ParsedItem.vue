@@ -12,30 +12,37 @@
                 {{ parsedItem.createdAt }}
             </span>
 
+            <span
+                v-if="parsedItem.quantity"
+                class="parsed-item__qty"
+            >
+                ({{ parsedItem.quantity }})
+            </span>
+
             {{ parsedItem.value }}
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
-import { IParsedItem } from '../interfaces'
-import parsedListStore from '../store/parsedList.store'
+import { defineComponent, PropType } from 'vue';
+import { IParsedItem } from '../interfaces';
+import parsedListStore from '../store/parsedList.store';
 
 export default defineComponent({
-    props: {
-        parsedItem: Object as PropType<IParsedItem>
-    },
-    setup(props, { emit }) {
-        const {
-            removeParsedItem,
-        } = parsedListStore
+  props: {
+    parsedItem: Object as PropType<IParsedItem>,
+  },
+  setup() {
+    const {
+      removeParsedItem,
+    } = parsedListStore;
 
-        return {
-            removeParsedItem,
-        }
-    }
-})
+    return {
+      removeParsedItem,
+    };
+  },
+});
 </script>
 
 <style lang="scss" scoped>
@@ -73,6 +80,11 @@ export default defineComponent({
         width: 100%;
         overflow: hidden;
         word-break: break-all;
+    }
+
+    &__qty {
+        font-size: 10px;
+        color: #f00;
     }
 }
 </style>

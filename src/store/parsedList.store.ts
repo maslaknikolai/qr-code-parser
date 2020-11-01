@@ -1,3 +1,3 @@
-import useParsedList from '../hooks/useParsedList'
+import useParsedList from '../hooks/useParsedList';
 
-export default useParsedList()
+export default useParsedList();

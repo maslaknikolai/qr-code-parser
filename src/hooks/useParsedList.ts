@@ -11,9 +11,10 @@ function getCurrentDate() {
 }
 
 export default function useParsedList() {
-    const savedList: IParsedList = localStorage.getItem('parsed')
-        ? JSON.parse(localStorage.getItem('parsed'))
-        : []
+  const savedListStringified = localStorage.getItem('parsed');
+    const savedList: IParsedList = savedListStringified
+      ? JSON.parse(savedListStringified)
+      : []
 
     const parsedList = ref(savedList)
 
@@ -26,12 +27,18 @@ export default function useParsedList() {
         value?: string,
         createdAt?: string
     }) {
-        parsedList.value.unshift({
-            uid: data.uid ? data.uid : Math.random(),
-            createdAt: data.createdAt ? data.createdAt : getCurrentDate(),
-
-            value: data.value,
-        } as IParsedItem)
+        const lastAdded = parsedList.value[0]
+        if (lastAdded && lastAdded.value === data.value) {
+            lastAdded.quantity += 1
+            return
+        } else {
+            parsedList.value.unshift({
+                uid: data.uid ? data.uid : Math.random(),
+                createdAt: data.createdAt ? data.createdAt : getCurrentDate(),
+                quantity: 0,
+                value: data.value,
+            } as IParsedItem)
+        }
 
         saveList()
     }
