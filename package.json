@@ -1,21 +1,17 @@
 {
-  "name": "Camera",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
+  "name": "qr-code-parser",
+  "version": "0.0.0",
   "scripts": {
-    "serve": "parcel ./src/index.html"
+    "dev": "vite",
+    "build": "vite build"
   },
   "dependencies": {
-    "qr-scanner": "^1.2.0"
+    "qr-scanner": "^1.2.0",
+    "vue": "^3.0.2"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.12.4",
-    "parcel-plugin-static-files-copy": "^2.5.0"
-  },
-  "staticFiles": {
-    "staticPath": [
-      "public"
-    ]
+    "@vue/compiler-sfc": "^3.0.2",
+    "sass": "^1.28.0",
+    "vite": "^1.0.0-rc.8"
   }
 }
