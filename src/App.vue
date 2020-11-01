@@ -3,9 +3,13 @@
         <ParserVideo />
         <ParsedList />
 
-        <div class="author">
-            Made by maslaknikolai
-        </div>
+        <a
+          href="https://github.com/maslaknikolai"
+          target="_blank"
+          class="author"
+        >
+          Made by maslaknikolai
+        </a>
     </div>
 </template>
 
@@ -45,7 +49,9 @@ html, body {
 .author {
   position: fixed;
   user-select: none;
-  pointer-events: none;
+  z-index: 3;
+  width: 100%;
+  text-align: center;
   bottom: 0;
   right: 0;
   color: #fff;
