@@ -19,27 +19,54 @@
                 ({{ parsedItem.quantity }})
             </span>
 
-            {{ parsedItem.value }}
+            <div class="parsed-item__value">
+              {{ parsedItem.value }}
+            </div>
+
+            <div
+              class="parsed-item__found-urls"
+              v-if="foundUrls.length"
+            >
+              Found URL's:
+
+              <div
+                v-for="url in foundUrls"
+                :key="url"
+              >
+                <a
+                  :href="url"
+                  target="_blank"
+                >
+                  {{ url }}
+                </a>
+              </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { computed, defineComponent, PropType } from 'vue';
 import { IParsedItem } from '../interfaces';
 import parsedListStore from '../store/parsedList.store';
 
 export default defineComponent({
   props: {
-    parsedItem: Object as PropType<IParsedItem>,
+    parsedItem: {
+      type: Object as PropType<IParsedItem>,
+      required: true,
+    },
   },
-  setup() {
+  setup(props) {
     const {
       removeParsedItem,
     } = parsedListStore;
 
+    const foundUrls = computed(() => props.parsedItem.value.match(/(https?:\/\/[\S]+)/g) || []);
+
     return {
       removeParsedItem,
+      foundUrls,
     };
   },
 });
@@ -69,13 +96,13 @@ export default defineComponent({
     }
 
     &__created-at {
-        color: #f00;
+        color: lighten($color: #f00, $amount: 15%);
     }
 
     &__content {
         color: #fff;
         font-weight: bold;
-        text-shadow: 0 0 2px rgba(#000, .1), 0 0 2px rgba(#000, .1);
+        text-shadow: 0 0 2px rgba(#000, .6), 0 0 2px rgba(#000, .6);
         margin-top: 1px;
         width: 100%;
         overflow: hidden;
@@ -85,6 +112,14 @@ export default defineComponent({
     &__qty {
         font-size: 10px;
         color: #f00;
+    }
+
+    &__found-urls {
+      margin-top: 10px;
+    }
+
+    &__value {
+      margin-top: 10px;
     }
 }
 </style>

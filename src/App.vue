@@ -38,6 +38,10 @@ html, body {
   padding: 0;
 }
 
+a {
+  color: #fff;
+}
+
 .app {
   background: #111;
   width: 100vw;
