@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+git branch -D gh-pages
+git co -b gh-pages
+
 yarn build
 
 rm -rf ./docs
@@ -7,5 +10,8 @@ rm -rf ./docs
 mv dist docs
 
 git add .
+git commit -m "UPDATE"
 
-git commit -m "UPDATE DOCS"
+git push origin gh-pages --force
+
+git co master
