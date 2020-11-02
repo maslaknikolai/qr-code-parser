@@ -1,54 +1,38 @@
 <template>
-    <div class="parsed-item">
-        <button
-            class="parsed-item__remove-btn"
-            @click="removeParsedItem(parsedItem)"
-        >
-            &times;
-        </button>
+  <div class="parsed-item">
+    <button
+      class="parsed-item__remove-btn"
+      @click="removeParsedItem(parsedItem)"
+    >
+      &times;
+    </button>
 
-        <div class="parsed-item__content">
-            <span class="parsed-item__created-at">
-                {{ parsedItem.createdAt }}
-            </span>
+    <div class="parsed-item__content">
+      <span class="parsed-item__created-at">
+        {{ parsedItem.createdAt }}
+      </span>
 
-            <span
-                v-if="parsedItem.quantity"
-                class="parsed-item__qty"
-            >
-                ({{ parsedItem.quantity }})
-            </span>
+      <span
+        v-if="parsedItem.quantity"
+        class="parsed-item__qty"
+      >
+        ({{ parsedItem.quantity }})
+      </span>
 
-            <div class="parsed-item__value">
-              {{ parsedItem.value }}
-            </div>
-
-            <div
-              class="parsed-item__found-urls"
-              v-if="foundUrls.length"
-            >
-              Found URL's:
-
-              <div
-                v-for="url in foundUrls"
-                :key="url"
-              >
-                <a
-                  :href="url"
-                  target="_blank"
-                >
-                  {{ url }}
-                </a>
-              </div>
-            </div>
-        </div>
+      <div
+        class="parsed-item__value"
+        v-html="parsedValueHtml"
+      />
     </div>
+  </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
-import { IParsedItem } from '../interfaces';
-import parsedListStore from '../store/parsedList.store';
+import { IParsedItem } from '@/interfaces';
+import matchUrls from '@/utils/matchUrls';
+import escapeHtml from '@/utils/escapeHtml';
+import parsedListStore from '@/store/parsedList.store';
 
 export default defineComponent({
   props: {
@@ -62,11 +46,28 @@ export default defineComponent({
       removeParsedItem,
     } = parsedListStore;
 
-    const foundUrls = computed(() => props.parsedItem.value.match(/(https?:\/\/[\S]+)/g) || []);
+    const parsedValueHtml = computed(() => {
+      let processedValue = props.parsedItem.value;
+
+      const matchedUrls = matchUrls(processedValue);
+
+      processedValue = matchedUrls.reduce((acc, url, i) => acc.replaceAll(
+        url, `##{{##${i}##}}##`,
+      ), processedValue);
+
+      processedValue = escapeHtml(processedValue);
+
+      processedValue = matchedUrls.reduce((acc, url, i) => acc.replaceAll(
+        `##{{##${i}##}}##`,
+        `<a href="${url}" target="_blank">${url}</a>`,
+      ), processedValue);
+
+      return processedValue;
+    });
 
     return {
       removeParsedItem,
-      foundUrls,
+      parsedValueHtml,
     };
   },
 });

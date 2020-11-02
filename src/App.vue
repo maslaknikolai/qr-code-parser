@@ -1,27 +1,23 @@
 <template>
-    <div class="app">
-        <ParserVideo />
-        <ParsedList />
+  <div class="app">
+    <ParserVideo />
+    <ParsedList />
 
-        <a
-          href="https://github.com/maslaknikolai"
-          target="_blank"
-          class="author"
-        >
-          Made by maslaknikolai
-        </a>
-    </div>
+    <Author />
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import ParsedList from './components/ParsedList.vue';
 import ParserVideo from './components/ParserVideo.vue';
+import Author from './components/Author.vue';
 
 export default defineComponent({
   components: {
     ParsedList,
     ParserVideo,
+    Author,
   },
 });
 </script>
@@ -48,18 +44,5 @@ a {
   height: 100vh;
   overflow: hidden;
   position: relative;
-}
-
-.author {
-  position: fixed;
-  user-select: none;
-  z-index: 3;
-  width: 100%;
-  text-align: center;
-  bottom: 0;
-  right: 0;
-  color: #fff;
-  font-family: sans-serif;
-  font-size: 10px;
 }
 </style>
