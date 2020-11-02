@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import ParsedItem from './ParsedItem.vue';
+import ParsedItem from './ParsedItem/index.vue';
 import parsedListStore from '../store/parsedList.store';
 
 export default defineComponent({
