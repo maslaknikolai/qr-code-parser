@@ -1,0 +1,5 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target" : { "namespace": "android_app", "package_name": "io.github.maslaknikolai.twa",
+                   "sha256_cert_fingerprints": ["85:07:66:1E:AB:C6:67:55:67:3E:66:3F:45:0E:9C:29:E8:70:E4:A6:09:83:EE:49:1D:1E:59:88:AD:11:0B:1F"] }
+    }]
