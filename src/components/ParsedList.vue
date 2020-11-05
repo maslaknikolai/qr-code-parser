@@ -1,7 +1,7 @@
 <template>
   <div class="parsed-list">
     <ParsedItem
-      v-for="parsedItem in parsedList"
+      v-for="parsedItem in sortedParsedList"
       :key="parsedItem.uid"
       :parsed-item="parsedItem"
     />
@@ -9,9 +9,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
+import parsedListStore from '@/store/parsedList.store';
 import ParsedItem from './ParsedItem/index.vue';
-import parsedListStore from '../store/parsedList.store';
 
 export default defineComponent({
   components: {
@@ -22,8 +22,12 @@ export default defineComponent({
       parsedList,
     } = parsedListStore;
 
+    const sortedParsedList = computed(() => parsedList.value.slice().sort(
+      (a, b) => Number(b.parsedAt[0]) - Number(a.parsedAt[0]),
+    ));
+
     return {
-      parsedList,
+      sortedParsedList,
     };
   },
 });

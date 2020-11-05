@@ -1,7 +1,8 @@
 export interface IParsedItem {
   uid: number;
   value: string;
-  parsedAt: string[];
+  quantity: number;
+  createdAt: string;
 }
 
 export type IParsedList = Array<IParsedItem>

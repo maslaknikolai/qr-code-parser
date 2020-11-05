@@ -1,8 +1,8 @@
 <template>
-    <video
-        class="video"
-        ref="videoElem"
-    />
+  <video
+    class="video"
+    ref="videoElem"
+  />
 </template>
 
 <script lang="ts">
@@ -17,9 +17,7 @@ export default defineComponent({
     const { createParsedItem } = parsedListStore;
 
     function onParsed(parseResult: string) {
-      createParsedItem({
-        value: parseResult,
-      });
+      createParsedItem(parseResult);
     }
 
     const videoElem = ref(null);

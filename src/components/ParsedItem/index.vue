@@ -5,31 +5,37 @@
     />
 
     <div class="parsed-item__content">
-      <span class="parsed-item__created-at">
-        {{ parsedItem.createdAt }}
-      </span>
-
-      <span
-        v-if="parsedItem.quantity"
-        class="parsed-item__qty"
-      >
-        ({{ parsedItem.quantity }})
-      </span>
-
       <div
         class="parsed-item__value"
         v-html="parsedValueHtml"
       />
+
+      <button @click="opened = !opened">
+        {{ opened ? 'Hide' : 'Show parsing dates' }}
+      </button>
+
+      <div v-if="opened">
+        <div
+          v-for="parseDate in formatedDates"
+          :key="parseDate"
+          class="parse-date"
+        >
+          {{ parseDate }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue';
+import {
+  computed, defineComponent, PropType, ref,
+} from 'vue';
 import { IParsedItem } from '@/interfaces';
 import matchUrls from '@/utils/matchUrls';
 import escapeHtml from '@/utils/escapeHtml';
 import parsedListStore from '@/store/parsedList.store';
+import moment from 'moment';
 import RemoveBtn from './RemoveBtn.vue';
 
 export default defineComponent({
@@ -66,9 +72,16 @@ export default defineComponent({
       return processedValue;
     });
 
+    const formatedDates = computed(() => props.parsedItem.parsedAt.map(
+      (timestamp) => moment.unix(+timestamp / 1000).format('YYYY-MM-DD HH:mm:ss'),
+    ));
+
+    const opened = ref(false);
     return {
       removeParsedItem,
       parsedValueHtml,
+      opened,
+      formatedDates,
     };
   },
 });
@@ -99,17 +112,19 @@ export default defineComponent({
     word-break: break-all;
   }
 
-  &__qty {
-    font-size: 10px;
-    color: #f00;
-  }
-
   &__found-urls {
     margin-top: 10px;
   }
 
   &__value {
     margin-top: 10px;
+    margin-bottom: 10px;
   }
+}
+
+.parse-date {
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 5px;
 }
 </style>

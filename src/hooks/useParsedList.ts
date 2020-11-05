@@ -1,58 +1,56 @@
-import { ref } from 'vue'
-import { IParsedItem, IParsedList } from '../interfaces'
-
-function getCurrentDate() {
-    const date = new Date();
-    const hours = date.getHours();
-    const minutes = "0" + date.getMinutes();
-    const seconds = "0" + date.getSeconds();
-
-    return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-}
+import { ref } from 'vue';
+import parsedListRepository from '@/repositories/parsedList';
+import { IParsedItem, IParsedList } from '../interfaces';
 
 export default function useParsedList() {
-  const savedListStringified = localStorage.getItem('parsed');
-    const savedList: IParsedList = savedListStringified
-      ? JSON.parse(savedListStringified)
-      : []
+  const parsedList = ref([] as IParsedList);
 
-    const parsedList = ref(savedList)
+  parsedListRepository.all()
+    .then((savedList) => {
+      parsedList.value = savedList;
+    });
 
-    function saveList() {
-        localStorage.setItem('parsed', JSON.stringify(parsedList.value))
+  function saveList() {
+    parsedListRepository.saveAll(parsedList.value);
+  }
+
+  function createParsedItem(value: string) {
+    const existingParsedItem = parsedList.value.find(
+      (parsedItem) => parsedItem.value === value,
+    );
+
+    const parsedAt = String(
+      new Date().valueOf(),
+    );
+
+    if (existingParsedItem) {
+      // TODO check
+      existingParsedItem.parsedAt.unshift(
+        parsedAt,
+      );
+    } else {
+      parsedList.value.push({
+        uid: Math.random(),
+        value,
+        parsedAt: [
+          parsedAt,
+        ],
+      });
     }
 
-    function createParsedItem(data: {
-        uid?: string | number,
-        value?: string,
-        createdAt?: string
-    }) {
-        const lastAdded = parsedList.value[0]
-        if (lastAdded && lastAdded.value === data.value) {
-            lastAdded.quantity += 1
-            return
-        } else {
-            parsedList.value.unshift({
-                uid: data.uid ? data.uid : Math.random(),
-                createdAt: data.createdAt ? data.createdAt : getCurrentDate(),
-                quantity: 0,
-                value: data.value,
-            } as IParsedItem)
-        }
+    saveList();
+  }
 
-        saveList()
-    }
+  function removeParsedItem(parsedItem: IParsedItem) {
+    const index = parsedList.value.indexOf(parsedItem);
+    parsedList.value.splice(index, 1);
 
-    function removeParsedItem(parsedItem: IParsedItem) {
-        const index = parsedList.value.indexOf(parsedItem)
-        parsedList.value.splice(index, 1)
+    saveList();
+  }
 
-        saveList()
-    }
-
-    return {
-        parsedList,
-        createParsedItem,
-        removeParsedItem
-    }
+  return {
+    parsedList,
+    createParsedItem,
+    removeParsedItem,
+  };
 }
