@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": ".well-known/assetlinks.json"
   },
   {
-    "revision": "f8c7477a63fe15dfbe52",
+    "revision": "d737afb4d199e39dfe09",
     "url": "css/app.a12bab0e.css"
   },
   {
@@ -16,12 +16,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "icon.png"
   },
   {
-    "revision": "63d5d97edc1088b8381b3914f642f877",
+    "revision": "f92418a0262418eafb6b5de17919ad09",
     "url": "index.html"
   },
   {
-    "revision": "f8c7477a63fe15dfbe52",
-    "url": "js/app.8510948e.js"
+    "revision": "d737afb4d199e39dfe09",
+    "url": "js/app.a62879d0.js"
   },
   {
     "revision": "98130a2ea7243e96b047",
