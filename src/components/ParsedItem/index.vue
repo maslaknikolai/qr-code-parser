@@ -11,7 +11,7 @@
       />
 
       <button @click="opened = !opened">
-        {{ opened ? 'Hide' : 'Show parsing dates' }}
+        {{ opened ? 'Hide' : 'Show dates' }}
       </button>
 
       <div v-if="opened">
