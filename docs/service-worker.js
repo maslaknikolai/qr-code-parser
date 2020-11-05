@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.b9d7dc5e521827ba1abad91c301a2d24.js"
+  "precache-manifest.a6e80da1e104c37a765a563d0bc82153.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "qr-code-parser-pwa"});
