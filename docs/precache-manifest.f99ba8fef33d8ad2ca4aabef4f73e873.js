@@ -1,23 +1,31 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
+    "revision": "d41d8cd98f00b204e9800998ecf8427e",
+    "url": ".nojekyll"
+  },
+  {
     "revision": "f9c6573753fd76414a49289865e69fb4",
     "url": ".well-known/assetlinks.json"
   },
   {
-    "revision": "4d3d4d4d531c3fafc83c",
-    "url": "css/app.d317c90a.css"
+    "revision": "95b9185565555f2b4405dff033ce56c8",
+    "url": "_config.yml"
+  },
+  {
+    "revision": "f8c7477a63fe15dfbe52",
+    "url": "css/app.a12bab0e.css"
   },
   {
     "revision": "0fda1cff42e604f603df2a2a17d78d3f",
     "url": "icon.png"
   },
   {
-    "revision": "bb5e24f1ff69a7885fcecd276167dcdb",
+    "revision": "63d5d97edc1088b8381b3914f642f877",
     "url": "index.html"
   },
   {
-    "revision": "4d3d4d4d531c3fafc83c",
-    "url": "js/app.11e3e83b.js"
+    "revision": "f8c7477a63fe15dfbe52",
+    "url": "js/app.8510948e.js"
   },
   {
     "revision": "98130a2ea7243e96b047",
