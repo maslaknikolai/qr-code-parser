@@ -8,10 +8,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": ".well-known/assetlinks.json"
   },
   {
-    "revision": "95b9185565555f2b4405dff033ce56c8",
-    "url": "_config.yml"
-  },
-  {
     "revision": "f8c7477a63fe15dfbe52",
     "url": "css/app.a12bab0e.css"
   },
